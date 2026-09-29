@@ -261,8 +261,8 @@ fun HomeScreen(
                             .testTag("home_search_input"),
                         placeholder = {
                             Text(
-                                text = "Search SIA Door, CSCS, SERU, CCTV...",
-                                fontSize = 13.sp,
+                                text = "Search...",
+                                fontSize = 14.sp,
                                 color = Color(0xFF64748B)
                             )
                         },

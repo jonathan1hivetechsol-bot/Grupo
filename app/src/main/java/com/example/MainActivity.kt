@@ -76,7 +76,9 @@ fun GrupoApp(viewModel: MainViewModel = viewModel()) {
         topBar = {
             GrupoTopBar(
                 savedCount = savedCourseIds.size,
-                onSavedClicked = { viewModel.setTab(AppTab.MY_PORTAL) }
+                onSavedClicked = { viewModel.setTab(AppTab.MY_PORTAL) },
+                onPortalLoginClicked = { viewModel.setTab(AppTab.MY_PORTAL) },
+                onMyAccountClicked = { viewModel.setTab(AppTab.MY_PORTAL) }
             )
         },
         bottomBar = {

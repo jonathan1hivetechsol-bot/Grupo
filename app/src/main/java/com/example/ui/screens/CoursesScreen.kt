@@ -87,8 +87,8 @@ fun CoursesScreen(
                         .testTag("course_search_input"),
                     placeholder = {
                         Text(
-                            text = "Search SIA, CSCS, SERU Taxi, CCTV, First Aid...",
-                            fontSize = 13.sp,
+                            text = "Search...",
+                            fontSize = 14.sp,
                             color = Color(0xFF64748B)
                         )
                     },

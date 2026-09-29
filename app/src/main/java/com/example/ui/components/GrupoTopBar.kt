@@ -2,9 +2,12 @@ package com.example.ui.components
 
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,6 +21,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
@@ -45,44 +49,176 @@ import com.example.ui.theme.GrupoNavyPrimary
 @Composable
 fun GrupoTopBar(
     savedCount: Int,
-    onSavedClicked: () -> Unit
+    onSavedClicked: () -> Unit,
+    onPortalLoginClicked: () -> Unit = {},
+    onMyAccountClicked: () -> Unit = {}
 ) {
     val context = LocalContext.current
 
-    Surface(
-        color = GrupoNavyDark,
+    Column(
         modifier = Modifier
             .fillMaxWidth()
             .testTag("grupo_top_bar")
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .statusBarsPadding()
-                .padding(horizontal = 16.dp, vertical = 10.dp)
+        // 1. TOP GREEN UTILITY BAR (Official website pattern from image.png)
+        Surface(
+            color = GrupoGreen,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .statusBarsPadding()
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 12.dp, vertical = 6.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    // Left: Social Icons (X, Facebook, Snapchat, TikTok)
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        // X
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_social_x),
+                            contentDescription = "Grupo on X",
+                            tint = Color.White,
+                            modifier = Modifier
+                                .size(14.dp)
+                                .clickable {
+                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/grupotraining"))
+                                    context.startActivity(intent)
+                                }
+                        )
+
+                        // Facebook
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_social_facebook),
+                            contentDescription = "Grupo on Facebook",
+                            tint = Color.White,
+                            modifier = Modifier
+                                .size(14.dp)
+                                .clickable {
+                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://facebook.com/grupotraining"))
+                                    context.startActivity(intent)
+                                }
+                        )
+
+                        // Snapchat
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_social_snapchat),
+                            contentDescription = "Grupo on Snapchat",
+                            tint = Color.White,
+                            modifier = Modifier
+                                .size(14.dp)
+                                .clickable {
+                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://snapchat.com/add/grupotraining"))
+                                    context.startActivity(intent)
+                                }
+                        )
+
+                        // TikTok
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_social_tiktok),
+                            contentDescription = "Grupo on TikTok",
+                            tint = Color.White,
+                            modifier = Modifier
+                                .size(14.dp)
+                                .clickable {
+                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://tiktok.com/@grupotraining"))
+                                    context.startActivity(intent)
+                                }
+                        )
+                    }
+
+                    // Right: "Portal Login" & "My Account" Buttons
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        // "Portal Login" Outlined Button
+                        Surface(
+                            color = Color.Transparent,
+                            shape = RoundedCornerShape(6.dp),
+                            border = BorderStroke(1.dp, Color.White),
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(6.dp))
+                                .clickable { onPortalLoginClicked() }
+                        ) {
+                            Text(
+                                text = "Portal Login",
+                                color = Color.White,
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.padding(horizontal = 9.dp, vertical = 3.dp)
+                            )
+                        }
+
+                        // "My Account" Royal Blue Button
+                        Surface(
+                            color = GrupoBlue,
+                            shape = RoundedCornerShape(6.dp),
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(6.dp))
+                                .clickable { onMyAccountClicked() }
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Person,
+                                    contentDescription = null,
+                                    tint = Color.White,
+                                    modifier = Modifier.size(13.dp)
+                                )
+                                Spacer(modifier = Modifier.width(4.dp))
+                                Text(
+                                    text = "My Account",
+                                    color = Color.White,
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // 2. MAIN NAVY HEADER BAR (Logo, Brand Title, Hotline, Bookmarks)
+        Surface(
+            color = GrupoNavyDark,
+            modifier = Modifier.fillMaxWidth()
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 14.dp, vertical = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 // Official Logo Emblem in clean white container for maximum visual punch
                 Box(
                     modifier = Modifier
-                        .size(46.dp)
+                        .size(42.dp)
                         .clip(RoundedCornerShape(10.dp))
                         .background(Color.White)
                         .border(1.dp, Color.White.copy(alpha = 0.3f), RoundedCornerShape(10.dp))
-                        .padding(4.dp),
+                        .padding(3.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.ic_grupo_logo),
                         contentDescription = "Grupo Training Official Logo",
-                        modifier = Modifier.size(38.dp)
+                        modifier = Modifier.size(36.dp)
                     )
                 }
 
-                Spacer(modifier = Modifier.width(12.dp))
+                Spacer(modifier = Modifier.width(10.dp))
 
                 // Brand Title & Tagline from grupotraining.co.uk
                 Column(
@@ -94,7 +230,7 @@ fun GrupoTopBar(
                         Text(
                             text = "GRUPO",
                             color = GrupoGreen,
-                            fontSize = 18.sp,
+                            fontSize = 17.sp,
                             fontWeight = FontWeight.Black,
                             letterSpacing = 0.5.sp
                         )
@@ -102,7 +238,7 @@ fun GrupoTopBar(
                         Text(
                             text = "TRAINING",
                             color = Color.White,
-                            fontSize = 18.sp,
+                            fontSize = 17.sp,
                             fontWeight = FontWeight.Black,
                             letterSpacing = 0.5.sp
                         )
@@ -126,7 +262,7 @@ fun GrupoTopBar(
                         context.startActivity(dialIntent)
                     },
                     modifier = Modifier
-                        .size(40.dp)
+                        .size(38.dp)
                         .clip(CircleShape)
                         .background(GrupoGreen)
                         .testTag("hotline_call_button")
@@ -135,17 +271,17 @@ fun GrupoTopBar(
                         imageVector = Icons.Default.Phone,
                         contentDescription = "Call Grupo Hotline 02039834565",
                         tint = Color.White,
-                        modifier = Modifier.size(19.dp)
+                        modifier = Modifier.size(18.dp)
                     )
                 }
 
-                Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = Modifier.width(6.dp))
 
                 // Saved courses bookmark shortcut
                 IconButton(
                     onClick = onSavedClicked,
                     modifier = Modifier
-                        .size(40.dp)
+                        .size(38.dp)
                         .clip(CircleShape)
                         .background(Color.White.copy(alpha = 0.12f))
                         .testTag("saved_courses_shortcut_button")
@@ -170,7 +306,7 @@ fun GrupoTopBar(
                             imageVector = Icons.Default.Bookmark,
                             contentDescription = "Saved Courses",
                             tint = Color.White,
-                            modifier = Modifier.size(20.dp)
+                            modifier = Modifier.size(19.dp)
                         )
                     }
                 }
