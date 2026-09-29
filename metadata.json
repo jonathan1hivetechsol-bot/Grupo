@@ -1,0 +1,6 @@
+{
+  "name": "Grupo Training",
+  "description": "Official vocational training & certification portal for SIA Security, CSCS Construction, TFL SERU/PCO Taxi & ESOL courses, mock exams, and bookings in London UK.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

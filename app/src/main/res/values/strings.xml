@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Grupo Training</string>
+    <string name="tagline">Accredited Vocational Qualifications &amp; Licencing</string>
+    <string name="location_address">252-256 Romford Road, Forest Gate, London E7 9HZ</string>
+    <string name="phone_number">020 3983 4565</string>
+    <string name="contact_email">info@grupotraining.co.uk</string>
+    <string name="website_url">https://www.grupotraining.co.uk</string>
+</resources>
